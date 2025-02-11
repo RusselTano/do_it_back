@@ -1,4 +1,4 @@
-import user from "../models/user.model.js";
+import User from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -6,10 +6,10 @@ export const register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    const existinguser = await user.findOne({ email });
+    const existinguser = await User.findOne({ email });
     if (existinguser) return res.json({ message: "Email deja utiliser ❌" });
 
-    await user.create({ name, email, password });
+    await User.create({ name, email, password });
 
     res.json({ message: "Compte cree avec success ✅" });
   } catch (err) {
@@ -22,7 +22,7 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
 
     // Verifier si l'utilisateur existe
-    const user = await user.findOne({ email });
+    const user = await User.findOne({ email });
     if (!user)
       return res.status(404).json({ message: "Utilisateur introuvable." });
 
