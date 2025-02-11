@@ -13,13 +13,6 @@ export const auth = (req, res, next) => {
 
     req.tutor = decoded; // 📌 Ajoute les infos de l'utilisateur à la requête
 
-    res.json({
-      tutor: {
-        tutorId: decoded.tutorId,
-        tutorEmail: decoded.tutorEmail,
-        tutorName: decoded.tutorName,
-      },
-    });
     next(); // Passe au middleware suivant
   } catch (err) {
     res.status(401).json({ message: "Token invalide" });

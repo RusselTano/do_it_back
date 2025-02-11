@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/connectDB.config.js";
 import createApp from "./app.js";
 
-dotenv.config(); // ✅ Charger les variables d'environnement AVANT tout
+dotenv.config(); 
 
 const PORT = process.env.PORT;
 
@@ -20,4 +20,4 @@ const startServer = async () => {
   }
 };
 
-startServer(); // 🚀 Lance tout de manière asynchrone
+startServer(); 

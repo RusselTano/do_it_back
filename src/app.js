@@ -3,6 +3,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 import apiRoutes from "./routes/index.js";
+import swaggerDocs from "./swagger/swagger.js"; // Import Swagger
+
 
 const createApp = async () => {
   const app = express();
@@ -25,6 +27,9 @@ const createApp = async () => {
 
   // Routes
   app.use(apiRoutes);
+
+
+swaggerDocs(app); // Active Swagger
 
   return app;
 };
