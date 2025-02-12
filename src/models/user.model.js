@@ -1,6 +1,8 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose";//ORM => Object relationnel mapping
 import bcrypt from "bcrypt"
 
+
+// 1 model
 const UserSchema = new mongoose.Schema({
   name: {type: String, required: true},
   email: {type:String, required: true},

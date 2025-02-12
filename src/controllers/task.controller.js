@@ -44,3 +44,14 @@ export const getTask = async (req, res) => {
     res.json({ success: false, error: err.message });
   }
 };
+
+export const updateTask = async (req, res) => {
+  try {
+    const task = await Task.findOne();
+    const updatedTask = await Task.findOneAndUpdate(req.params.id);
+
+    res.json({ success: true, data: updatedTask });
+  } catch (err) {
+    res.json({ success: false, error: err.message });
+  }
+};

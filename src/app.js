@@ -5,7 +5,6 @@ import cookieParser from "cookie-parser";
 import apiRoutes from "./routes/index.js";
 import swaggerDocs from "./swagger/swagger.js"; // Import Swagger
 
-
 const createApp = async () => {
   const app = express();
 
@@ -18,7 +17,7 @@ const createApp = async () => {
   // ✅ Activer CORS avec `credentials: true`
   app.use(
     cors({
-      origin: process.env.CLIENT_URL, 
+      origin: process.env.CLIENT_URL,
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       allowedHeaders: ["Content-Type", "Authorization"],
       credentials: true,
@@ -28,8 +27,7 @@ const createApp = async () => {
   // Routes
   app.use(apiRoutes);
 
-
-swaggerDocs(app); // Active Swagger
+  swaggerDocs(app); // Active Swagger
 
   return app;
 };
