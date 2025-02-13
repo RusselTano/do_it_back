@@ -11,7 +11,7 @@ export const auth = (req, res, next) => {
     // 📌 Vérifier et décoder le token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.tutor = decoded; // 📌 Ajoute les infos de l'utilisateur à la requête
+    req.user = decoded; // 📌 Ajoute les infos de l'utilisateur à la requête
 
     next(); // Passe au middleware suivant
   } catch (err) {
