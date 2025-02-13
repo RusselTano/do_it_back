@@ -13,6 +13,7 @@ const startServer = async () => {
 
     app.listen(PORT, () => {
       console.log(`✅ Server running on http://localhost:${PORT}`);
+      console.log(`✅ documentation running on http://localhost:${PORT}/api-docs`);
     });
   } catch (error) {
     console.error("❌ Erreur lors du démarrage du serveur :", error);

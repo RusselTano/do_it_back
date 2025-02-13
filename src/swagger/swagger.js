@@ -25,17 +25,12 @@ const options = {
     },
     security: [{ cookieAuth: [] }],
   },
-  apis: ["./src/routes/tutor.routes.js"], // Chemin vers tes fichiers de routes
+  apis: ["./src/routes/*.js", "./src/models/*.js"], // Chemin vers tes fichiers de routes
 };
 
+// specifications
 const swaggerSpec = swaggerJsdoc(options);
 
 export default (app) => {
-  app.use("/api-docs", swaggerUi.serve, (req, res, next) => {
-    swaggerUi.setup(swaggerSpec, {
-      swaggerOptions: {
-        withCredentials: true, // Permet d'envoyer les cookies
-      },
-    })(req, res, next);
-  });
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 };
