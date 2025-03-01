@@ -1,6 +1,6 @@
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
-// import s from "../routes/tutor.routes"
+
 const options = {
   definition: {
     openapi: "3.0.0",

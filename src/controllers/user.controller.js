@@ -10,7 +10,7 @@ export const register = async (req, res) => {
     if (existinguser) return res.json({ message: "Email deja utiliser ❌" });
 
     await User.create({ name, email, password });
-
+    
     res.json({ message: "Compte cree avec success ✅" });
   } catch (err) {
     res.json({ message: "Erreur serveur : ", error: err.message });

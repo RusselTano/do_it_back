@@ -1,7 +1,7 @@
-import express from "express";
+import {Router} from "express";
 import { createTask, getAllTasks, getTask } from "../controllers/task.controller.js";
 
-const route = express.Router();
+const route = Router();
 
 route.get("/", getAllTasks);
 route.get("/:id", getTask);
