@@ -1,42 +1,42 @@
-import Tutor from "../models/tutor.model.js";
+import User from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export const registerTutor = async (req, res) => {
+export const register = async (req, res) => {
   try {
-    const { tutorName, tutorEmail, password } = req.body;
+    const { name, email, password } = req.body;
 
-    const existingTutor = await Tutor.findOne({ tutorEmail });
-    if (existingTutor) return res.json({ message: "Email deja utiliser ❌" });
+    const existinguser = await User.findOne({ email });
+    if (existinguser) return res.json({ message: "Email deja utiliser ❌" });
 
-    await Tutor.create({ tutorName, tutorEmail, password });
-
+    await User.create({ name, email, password });
+    
     res.json({ message: "Compte cree avec success ✅" });
   } catch (err) {
     res.json({ message: "Erreur serveur : ", error: err.message });
   }
 };
 
-export const loginTutor = async (req, res) => {
+export const login = async (req, res) => {
   try {
-    const { tutorEmail, password } = req.body;
+    const { email, password } = req.body;
 
     // Verifier si l'utilisateur existe
-    const tutor = await Tutor.findOne({ tutorEmail });
-    if (!tutor)
+    const user = await User.findOne({ email });
+    if (!user)
       return res.status(404).json({ message: "Utilisateur introuvable." });
 
     // Verifier si le mot de passe est correct
-    const isPasswordCorrect = await bcrypt.compare(password, tutor.password);
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect)
       return res.status(401).json({ message: "Mot de passe incorrect." });
 
     // Créer le token
     const accessToken = jwt.sign(
       {
-        tutorId: tutor._id,
-        tutorEmail: tutor.tutorEmail,
-        tutorName: tutor.tutorName,
+        id: user._id,
+        email: user.email,
+        name: user.name,
       },
       process.env.JWT_SECRET,
       {
@@ -47,9 +47,9 @@ export const loginTutor = async (req, res) => {
     // Créer le refresh token
     const refreshToken = jwt.sign(
       {
-        tutorId: tutor._id,
-        tutorEmail: tutor.tutorEmail,
-        tutorName: tutor.tutorName,
+        id: user._id,
+        email: user.email,
+        name: user.name,
       },
       process.env.JWT_SECRET,
       {
@@ -75,11 +75,11 @@ export const loginTutor = async (req, res) => {
 
     res.status(200).json({
       message: "Connexion réussie !",
-      tutor: {
-        id: tutor._id,
-        tutorName: tutor.tutorName,
-        tutorEmail: tutor.tutorEmail,
-        role: tutor.role || "tutor",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role || "user",
       },
     });
   } catch (err) {
@@ -87,7 +87,7 @@ export const loginTutor = async (req, res) => {
   }
 };
 
-export const logoutTutor = (req, res) => {
+export const logout = (req, res) => {
   try {
     res.clearCookie("accessToken", { httpOnly: true, secure: true });
     res.clearCookie("refreshToken", { httpOnly: true, secure: true });
@@ -101,6 +101,6 @@ export const logoutTutor = (req, res) => {
   }
 };
 
-export const profileTutor = async (req, res) => {
-  res.json({ message: "Profil de l'utilisateur", tutor: req.tutor });
+export const profile = async (req, res) => {
+  res.json({ message: "Authentification réussie", user: req.user });
 };
